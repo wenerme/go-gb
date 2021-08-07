@@ -29,16 +29,6 @@ func (r *Record) Parent() *Record {
 	return LookupCode(r.Code[0:4] + "00")
 }
 
-func Level(s string) int {
-	if strings.HasSuffix(s, "0000") {
-		return 1
-	}
-	if strings.HasSuffix(s, "00") {
-		return 2
-	}
-	return 3
-}
-
 func LookupCode(code string) *Record {
 	s := getStore()
 	return dup(s.codes[code])
