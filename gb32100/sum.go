@@ -6,7 +6,7 @@ import (
 
 // GB/T 17710
 
-var _weight = []int{1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28}
+var _weights = []int{1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28}
 
 func IsValid(s string) bool {
 	if len(s) != FullLen {
@@ -18,8 +18,8 @@ func IsValid(s string) bool {
 }
 
 func Sum(s string) (string, error) {
-	if len(s) != ContentLen {
-		return "", fmt.Errorf("need %v got: %v", ContentLen, len(s))
+	if len(s) != MasterLen {
+		return "", fmt.Errorf("need %v got: %v", MasterLen, len(s))
 	}
 	sum := 0
 	for i, r := range s {
@@ -27,7 +27,7 @@ func Sum(s string) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		sum += d * _weight[i]
+		sum += d * _weights[i]
 	}
 	sum %= 31
 	sum = 31 - sum

@@ -1,4 +1,4 @@
-package gb32100
+package gb11643
 
 const (
 	FullLen   = 18
