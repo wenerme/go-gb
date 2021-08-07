@@ -7,8 +7,8 @@ import (
 	"strings"
 )
 
-//go:embed codes.csv
-var codes string
+//go:embed records.csv
+var data string
 
 type Record struct {
 	Code string
@@ -27,24 +27,6 @@ func (r *Record) Parent() *Record {
 		return LookupCode(r.Code[0:2] + "0000")
 	}
 	return LookupCode(r.Code[0:4] + "00")
-}
-
-func LookupCode(code string) *Record {
-	s := getStore()
-	return dup(s.codes[code])
-}
-
-func LookupName(code string) *Record {
-	s := getStore()
-	return dup(s.names[code])
-}
-
-func dup(r *Record) *Record {
-	if r != nil {
-		rr := *r
-		return &rr
-	}
-	return nil
 }
 
 type store struct {
@@ -67,7 +49,7 @@ var _store *store
 func getStore() *store {
 	if _store == nil {
 		s := &store{}
-		r := csv.NewReader(strings.NewReader(codes))
+		r := csv.NewReader(strings.NewReader(data))
 		r.ReuseRecord = true
 		for {
 			row, _ := r.Read()

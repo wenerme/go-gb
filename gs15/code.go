@@ -74,8 +74,8 @@ func (c Code) String() string {
 
 func (c Code) CalcSum() int {
 	s := fmt.Sprintf("%06d%08d", c.FirstRegNo, c.Sequence)
-	i, _ := DigitStringToIntSlice(s)
-	return Mod1110(i)
+	i, _ := Sum(s)
+	return i
 }
 
 func (c Code) IsValid() bool {

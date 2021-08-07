@@ -21,6 +21,17 @@ func TestCodeSeq(t *testing.T) {
 	c, err := ParseCode("310230001716146")
 	assert.NoError(t, err)
 	assert.Equal(t, "310230001716154", c.Next().String())
+	assert.True(t, c.IsValid())
+	{
+		next, err := Next(c.String())
+		assert.NoError(t, err)
+		assert.Equal(t, "310230001716154", next)
+	}
+	{
+		prev, err := Prev("310230001716154")
+		assert.NoError(t, err)
+		assert.Equal(t, "310230001716146", prev)
+	}
 }
 
 func TestValidDigitLen(t *testing.T) {

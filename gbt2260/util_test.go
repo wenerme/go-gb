@@ -1,8 +1,9 @@
 package gbt2260
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestWithIn(t *testing.T) {
@@ -11,6 +12,7 @@ func TestWithIn(t *testing.T) {
 	assert.True(t, WithIn("101011", "100000"))
 	assert.False(t, WithIn("101000", "101011"))
 }
+
 func TestLevel(t *testing.T) {
 	assert.Equal(t, 3, Level("010203"))
 	assert.Equal(t, 2, Level("010200"))
