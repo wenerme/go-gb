@@ -16,6 +16,9 @@ func TestParseCode(t *testing.T) {
 		OrgCode:      "M000100Y4",
 		Sum:          "3",
 	}, u)
+	assert.Equal(t, "工商", u.RegDeptName())
+	assert.Equal(t, "企业", u.OrgTypeName())
+
 	assert.True(t, u.IsValid())
 	assert.True(t, IsValid(u.String()))
 	assert.True(t, IsValid("91350100M000100Y43"))
