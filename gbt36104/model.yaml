@@ -1,0 +1,67 @@
+fields:
+  - name: tyshxydm
+    label: 统一社会信用代码
+  - name: zzjgdm
+    label: 组织机构代码
+  - name: jgmc
+    label: 机构名称
+  - name: zcdz
+    label: 注册地址
+  - name: zcdzxzqhdm
+    label: 注册地址行政区划代码
+  - name: jyfw
+    label: 经营范围
+  - name: zczj
+    label: 注册资金
+    type: int
+  - name: fddbrxm
+    label: 法定代表人或负责人姓名
+  - name: fddbrzjlx
+    label: 法定代表人或负责人证件类型
+  - name: fddbrzjhm
+    label: 法定代表人或负责人证件号码
+  - name: clrq
+    label: 成立日期
+  - name: djywlx
+    label: 登记业务类型
+  - name: hzrq
+    label: 核准日期
+  - name: zhgxrq
+    label: 最后更新日期
+  - name: zt
+    label: 状态
+  - name: scjydz
+    label: 生产经营地址
+  - name: scjydzxzqhdm
+    label: 生产经营地址行政区划代码
+  - name: hbzl
+    label: 货币种类
+  - name: zch
+    label: 注册号
+  - name: jjhydm
+    label: 经济行业代码
+  - name: jjlxdm
+    label: 经济类型代码
+  - name: djglbmmc
+    label: 登记管理部门名称
+  - name: djglbmdm
+    label: 登记管理部门代码
+  - name: zgdw
+    label: 主管单位
+  - name: zgdwdm
+    label: 主管单位代码
+  - name: lxdh
+    label: 联系电话
+  - name: zgrs
+    label: 职工人数
+    type: int
+  - name: lxr
+    label: 联系人
+  - name: yxqz
+    label: 有限期自
+  - name: yxqzhi
+    label: 有限期至
+  - name: gdmc
+    label: 股东或投资人名称
+  - name: sfgk
+    label: 是否公开

@@ -63,18 +63,21 @@ func Mod1110(n []int) int {
 }
 
 type Code struct {
-	FirstRegNo int // 首次登记机关码
-	Sequence   int // 顺序码 8
+	RegAdminNo int // 首次登记机关码 - DivisionCode
+	Number     int // 顺序码 8
 	Sum        int // 校验码 1
 }
 
 func (c Code) String() string {
-	return fmt.Sprintf("%06d%08d%01d", c.FirstRegNo, c.Sequence, c.Sum)
+	return fmt.Sprintf("%06d%08d%01d", c.RegAdminNo, c.Number, c.Sum)
+}
+
+func (c Code) MasterNumber() string {
+	return fmt.Sprintf("%06d%08d", c.RegAdminNo, c.Number)
 }
 
 func (c Code) CalcSum() int {
-	s := fmt.Sprintf("%06d%08d", c.FirstRegNo, c.Sequence)
-	i, _ := Sum(s)
+	i, _ := Sum(c.MasterNumber())
 	return i
 }
 
@@ -84,8 +87,8 @@ func (c Code) IsValid() bool {
 
 func (c Code) Prev() Code {
 	n := Code{
-		FirstRegNo: c.FirstRegNo,
-		Sequence:   c.Sequence - 1,
+		RegAdminNo: c.RegAdminNo,
+		Number:     c.Number - 1,
 	}
 	n.Sum = n.CalcSum()
 	return n
@@ -93,8 +96,8 @@ func (c Code) Prev() Code {
 
 func (c Code) Next() Code {
 	n := Code{
-		FirstRegNo: c.FirstRegNo,
-		Sequence:   c.Sequence + 1,
+		RegAdminNo: c.RegAdminNo,
+		Number:     c.Number + 1,
 	}
 	n.Sum = n.CalcSum()
 	return n
@@ -105,9 +108,9 @@ func ParseCode(s string) (c *Code, err error) {
 		return nil, fmt.Errorf("不是15位营业执照编号: %v", len(s))
 	}
 	c = &Code{}
-	c.FirstRegNo, err = strconv.Atoi(s[0:6])
+	c.RegAdminNo, err = strconv.Atoi(s[0:6])
 	if err == nil {
-		c.Sequence, err = strconv.Atoi(s[6:14])
+		c.Number, err = strconv.Atoi(s[6:14])
 	}
 	if err == nil {
 		c.Sum, err = strconv.Atoi(s[14:15])

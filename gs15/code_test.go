@@ -8,12 +8,12 @@ import (
 
 func TestCode(t *testing.T) {
 	assert.Equal(t, Code{}.String(), "000000000000000")
-	assert.Equal(t, Code{FirstRegNo: 1, Sequence: 2, Sum: 3}.String(), "000001000000023")
+	assert.Equal(t, Code{RegAdminNo: 1, Number: 2, Sum: 3}.String(), "000001000000023")
 
 	c, err := ParseCode("123456123456781")
 	assert.NoError(t, err)
-	assert.Equal(t, 123456, c.FirstRegNo)
-	assert.Equal(t, 12345678, c.Sequence)
+	assert.Equal(t, 123456, c.RegAdminNo)
+	assert.Equal(t, 12345678, c.Number)
 	assert.Equal(t, 1, c.Sum)
 }
 

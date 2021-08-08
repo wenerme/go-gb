@@ -22,3 +22,8 @@ China GB standard implemented in golang.
 | GB/T 2659-2000  | ISO 3166-1:1997   | 世界各国和地区名称代码
 | GS15-2006       |                   | 工商行政管理市场主体注册号编制规则     |
 | GB 11643-1999   |                   | 公民身份号码
+| GB/T 36104-2018 |                   | 法人和其他组织统一社会信用代码基础数据元
+
+## 参考
+
+- [国标参考笔记](https://wener.me/notes/service/data/gb/gb)

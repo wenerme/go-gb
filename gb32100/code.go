@@ -8,7 +8,7 @@ import (
 
 // Code Unified Social Credit Identifier - 统一社会信用代码
 type Code struct {
-	RegDeptCode  string // 1 登记管理部门码
+	RegAdminCode string // 1 登记管理部门码
 	OrgTypeCode  string // 1 机构类别码
 	DivisionCode string // 6 登记管理机关行政区划码 GB/T 2260
 	OrgCode      string // 9 主体标识码/组织机构代码 GB 11714
@@ -39,12 +39,12 @@ func Prev(s string) (string, error) {
 	return next.String(), nil
 }
 
-func (u Code) RegDeptName() string {
-	return _regDeptCodeName[u.RegDeptCode]
+func (u Code) RegAdminName() string {
+	return _regAdminCodeName[u.RegAdminCode]
 }
 
 func (u Code) OrgTypeName() string {
-	m := _orgTypeCodeName[u.RegDeptCode]
+	m := _orgTypeCodeName[u.RegAdminCode]
 	if m == nil {
 		return ""
 	}
@@ -52,11 +52,11 @@ func (u Code) OrgTypeName() string {
 }
 
 func (u Code) String() string {
-	return fmt.Sprintf("%v%v%v%v%v", u.RegDeptCode, u.OrgTypeCode, u.DivisionCode, u.OrgCode, u.Sum)
+	return fmt.Sprintf("%v%v%v%v%v", u.RegAdminCode, u.OrgTypeCode, u.DivisionCode, u.OrgCode, u.Sum)
 }
 
 func (u Code) CalcSum() string {
-	s := fmt.Sprintf("%v%v%v%v", u.RegDeptCode, u.OrgTypeCode, u.DivisionCode, u.OrgCode)
+	s := fmt.Sprintf("%v%v%v%v", u.RegAdminCode, u.OrgTypeCode, u.DivisionCode, u.OrgCode)
 	sum, _ := Sum(s)
 	return sum
 }
@@ -67,7 +67,7 @@ func (u Code) Next() (*Code, error) {
 		return nil, err
 	}
 	c := &Code{
-		RegDeptCode:  u.RegDeptCode,
+		RegAdminCode: u.RegAdminCode,
 		OrgTypeCode:  u.OrgTypeCode,
 		DivisionCode: u.DivisionCode,
 		OrgCode:      neo,
@@ -82,7 +82,7 @@ func (u Code) Prev() (*Code, error) {
 		return nil, err
 	}
 	c := &Code{
-		RegDeptCode:  u.RegDeptCode,
+		RegAdminCode: u.RegAdminCode,
 		OrgTypeCode:  u.OrgTypeCode,
 		DivisionCode: u.DivisionCode,
 		OrgCode:      neo,
@@ -101,7 +101,7 @@ func ParseCode(s string) (u *Code, err error) {
 	}
 
 	u = &Code{
-		RegDeptCode:  s[0:1],
+		RegAdminCode: s[0:1],
 		OrgTypeCode:  s[1:2],
 		DivisionCode: s[2:8],
 		OrgCode:      s[8:17],
@@ -111,8 +111,8 @@ func ParseCode(s string) (u *Code, err error) {
 }
 
 var (
-	_regDeptCodeName = map[string]string{"1": "机构编制", "2": "外交", "3": "司法行政", "4": "文化", "5": "民政", "6": "旅游", "7": "宗教", "8": "工会", "9": "工商", "A": "中央军委改革和编制办公室", "N": "农业", "Y": "其他"}
-	_orgTypeCodeName = map[string]map[string]string{
+	_regAdminCodeName = map[string]string{"1": "机构编制", "2": "外交", "3": "司法行政", "4": "文化", "5": "民政", "6": "旅游", "7": "宗教", "8": "工会", "9": "工商", "A": "中央军委改革和编制办公室", "N": "农业", "Y": "其他"}
+	_orgTypeCodeName  = map[string]map[string]string{
 		"1": {"1": "机关", "2": "事业单位", "3": "编办直接管理机构编制的群众团体", "9": "其他"},
 		"2": {"1": "外国常驻新闻机构", "9": "其他"},
 		"3": {"1": "律师执业机构", "2": "公证处", "3": "基层法律服务所", "4": "司法鉴定机构", "5": "仲裁委员会", "9": "其他"},
