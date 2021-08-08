@@ -14,4 +14,6 @@ require (
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
+	gorm.io/driver/sqlite v1.1.4
+	gorm.io/gorm v1.21.12
 )

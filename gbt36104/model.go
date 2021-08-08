@@ -1,6 +1,6 @@
 package gbt36104
 
-type Model struct {
+type Organization struct {
 	Tyshxydm     string // 统一社会信用代码
 	Zzjgdm       string // 组织机构代码
 	Jgmc         string // 机构名称

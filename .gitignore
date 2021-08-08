@@ -16,3 +16,5 @@
 
 .idea
 ignored
+*.db
+cover.html

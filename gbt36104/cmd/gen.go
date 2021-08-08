@@ -36,7 +36,7 @@ func main() {
 	_, err = tpl.Parse(`
 package gbt36104
 
-type Model struct {
+type {{.Name}} struct {
   {{- range $k, $v := .Fields}}
   {{$v.Name | title}} {{$v.GoType}} // {{$v.NameZh}} 
   {{- end}}
@@ -65,6 +65,7 @@ type MetaModelField struct {
 }
 
 type MetaModel struct {
+	Name   string
 	Fields []*MetaModelField
 }
 
