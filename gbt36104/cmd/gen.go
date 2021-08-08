@@ -38,7 +38,7 @@ package gbt36104
 
 type Model struct {
   {{- range $k, $v := .Fields}}
-  {{$v.Name | title}} {{$v.GoType}} // {{$v.Label}} 
+  {{$v.Name | title}} {{$v.GoType}} // {{$v.NameZh}} 
   {{- end}}
 }
 `)
@@ -59,9 +59,9 @@ func NoError(err error) {
 
 type MetaModelField struct {
 	Name   string
-	Label  string
+	NameZh string `yaml:"nameZh"`
 	Type   string
-	GoType string
+	GoType string `yaml:"goType"`
 }
 
 type MetaModel struct {

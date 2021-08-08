@@ -20,7 +20,7 @@ type Model struct {
 	Scjydzxzqhdm string // 生产经营地址行政区划代码
 	Hbzl         string // 货币种类
 	Zch          string // 注册号
-	Jjhydm       string // 经济行业代码
+	Jjhydm       string // 行业分类代码
 	Jjlxdm       string // 经济类型代码
 	Djglbmmc     string // 登记管理部门名称
 	Djglbmdm     string // 登记管理部门代码
@@ -32,5 +32,5 @@ type Model struct {
 	Yxqz         string // 有限期自
 	Yxqzhi       string // 有限期至
 	Gdmc         string // 股东或投资人名称
-	Sfgk         string // 是否公开
+	Sfgk         int    // 是否公开
 }
