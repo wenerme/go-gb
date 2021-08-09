@@ -8,7 +8,9 @@ import (
 	"reflect"
 	"text/template"
 
-	"github.com/wenerme/go-gb/gbt36104/cmd/gens"
+	"github.com/wenerme/go-gens/gen"
+	"github.com/wenerme/go-gens/gengo"
+	"github.com/wenerme/go-gens/models/entm"
 
 	"github.com/Masterminds/sprig"
 
@@ -42,28 +44,28 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	mm := &gens.EntityMetaModel{}
+	mm := &entm.EntityMetaModel{}
 	if err := yaml.Unmarshal(file, mm); err != nil {
 		log.Fatalln(err)
 	}
-	NoError(gens.Normalize(mm))
+	NoError(entm.Normalize(mm))
 
-	g := &gens.Generator{
+	g := &gen.Generator{
 		Template: MustParseTemplates(),
-		Templates: []gens.IsTemplate{
-			gens.MetaModelTemplate{
+		Templates: []gen.IsTemplate{
+			entm.MetaModelTemplate{
 				Name:     "go/model",
 				Filename: "model.go",
 			},
-			gens.MetaModelTemplate{
+			entm.MetaModelTemplate{
 				Name:     "sql/pg",
 				Filename: "model.pg.sql",
 			},
 		},
-		Formatter: gens.GoFormatter,
+		Formatter: gengo.Format,
 	}
 	NoError(g.Generate(mm))
-	NoError(g.Write(gens.WriteConfig{}))
+	NoError(g.Write(gen.WriteConfig{}))
 }
 
 func NoError(err error) {
