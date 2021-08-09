@@ -1,0 +1,12 @@
+{{/* gotype: github.com/wenerme/go-gb/gbt36104/cmd/gens.EntityMetaModel */}}
+{{define "sql/pg"}}
+create table {{.TableName}} (
+    {{- range $k,$f := .Fields}}
+        {{$f.Name}} {{$f.SQLType}}{{if not (last $k $.Fields)}},{{end}}
+    {{- end}}
+);
+
+{{- range $k,$f := .Fields}}
+comment on column {{$.TableName}}.{{$f.Name}} is '{{$f.NameZh}}';
+{{- end}}
+{{end}}

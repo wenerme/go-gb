@@ -1,11 +1,12 @@
 package gbt36104
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
-import "gorm.io/gorm"
-import "gorm.io/driver/sqlite"
 
 func TestGormGen(t *testing.T) {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{

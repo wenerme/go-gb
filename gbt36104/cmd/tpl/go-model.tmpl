@@ -1,0 +1,10 @@
+{{/* gotype: github.com/wenerme/go-gb/gbt36104/cmd/gens.EntityMetaModel*/}}
+{{define "go/model"}}
+package gbt36104
+
+type {{.Name}} struct {
+  {{- range $k, $v := .Fields}}
+  {{$v.Name | title}} {{$v.GoType}} // {{$v.NameZh}}
+  {{- end}}
+}
+{{end}}

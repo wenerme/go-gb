@@ -1,18 +1,35 @@
 package main
 
 import (
-	"bytes"
+	"embed"
 	"flag"
-	"fmt"
-	"go/format"
 	"log"
 	"os"
+	"reflect"
 	"text/template"
+
+	"github.com/wenerme/go-gb/gbt36104/cmd/gens"
 
 	"github.com/Masterminds/sprig"
 
 	"gopkg.in/yaml.v3"
 )
+
+//go:embed tpl/*.tmpl
+var templateFS embed.FS
+
+func MustParseTemplates() *template.Template {
+	return template.Must(
+		template.New("tpl").
+			Funcs(sprig.TxtFuncMap()).
+			Funcs(template.FuncMap{
+				"last": func(x int, a interface{}) bool {
+					return x == reflect.ValueOf(a).Len()-1
+				},
+			}).
+			ParseFS(templateFS, "tpl/*.tmpl"),
+	)
+}
 
 func main() {
 	metaFile := ""
@@ -25,65 +42,32 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	mm := &MetaModel{}
+	mm := &gens.EntityMetaModel{}
 	if err := yaml.Unmarshal(file, mm); err != nil {
 		log.Fatalln(err)
 	}
-	NoError(Normalize(mm))
+	NoError(gens.Normalize(mm))
 
-	tpl := template.New("go")
-	tpl.Funcs(sprig.TxtFuncMap())
-	_, err = tpl.Parse(`
-package gbt36104
-
-type {{.Name}} struct {
-  {{- range $k, $v := .Fields}}
-  {{$v.Name | title}} {{$v.GoType}} // {{$v.NameZh}} 
-  {{- end}}
-}
-`)
-	NoError(err)
-	out := &bytes.Buffer{}
-	NoError(tpl.Execute(out, mm))
-	b := out.Bytes()
-	b, err = gofmt(b)
-	NoError(err)
-	NoError(os.WriteFile("model.go", b, 0o600))
+	g := &gens.Generator{
+		Template: MustParseTemplates(),
+		Templates: []gens.IsTemplate{
+			gens.MetaModelTemplate{
+				Name:     "go/model",
+				Filename: "model.go",
+			},
+			gens.MetaModelTemplate{
+				Name:     "sql/pg",
+				Filename: "model.pg.sql",
+			},
+		},
+		Formatter: gens.GoFormatter,
+	}
+	NoError(g.Generate(mm))
+	NoError(g.Write(gens.WriteConfig{}))
 }
 
 func NoError(err error) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-}
-
-type MetaModelField struct {
-	Name   string
-	NameZh string `yaml:"nameZh"`
-	Type   string
-	GoType string `yaml:"goType"`
-}
-
-type MetaModel struct {
-	Name   string
-	Fields []*MetaModelField
-}
-
-func Normalize(mm *MetaModel) error {
-	for _, f := range mm.Fields {
-		if f.Type == "" {
-			f.Type = "string"
-		}
-		if f.GoType == "" {
-			f.GoType = f.Type
-		}
-		if f.GoType == "" {
-			return fmt.Errorf("no go type %q", f.Name)
-		}
-	}
-	return nil
-}
-
-func gofmt(f []byte) (i []byte, err error) {
-	return format.Source(f)
 }
