@@ -3,13 +3,19 @@ package main
 import (
 	"embed"
 	"flag"
+	"fmt"
 	"log"
 	"os"
 	"reflect"
 	"text/template"
 
-	"github.com/wenerme/go-gens/gen"
 	"github.com/wenerme/go-gens/gengo"
+	"github.com/wenerme/go-gens/gengqls"
+
+	"github.com/huandu/xstrings"
+	"github.com/jinzhu/inflection"
+
+	"github.com/wenerme/go-gens/gen"
 	"github.com/wenerme/go-gens/models/entm"
 
 	"github.com/Masterminds/sprig"
@@ -61,8 +67,12 @@ func main() {
 				Name:     "sql/pg",
 				Filename: "model.pg.sql",
 			},
+			entm.MetaModelTemplate{
+				Name:     "gqls/type",
+				Filename: "model.graphqls",
+			},
 		},
-		Formatter: gengo.Format,
+		Formatter: gen.Formatters(gengo.Format, gengqls.Format),
 	}
 	NoError(g.Generate(mm))
 	NoError(g.Write(gen.WriteConfig{}))
@@ -72,4 +82,33 @@ func NoError(err error) {
 	if err != nil {
 		log.Fatalln(err)
 	}
+}
+
+func Normalize(mm *entm.EntityMetaModel) error {
+	if mm.TableName == "" {
+		mm.TableName = inflection.Plural(xstrings.ToSnakeCase(mm.Name))
+	}
+	for _, f := range mm.Fields {
+		if f.Type == "" {
+			f.Type = "string"
+		}
+		if f.SQLType == "" {
+			switch f.Type {
+			case "string":
+				f.SQLType = "text"
+			default:
+				f.SQLType = f.Type
+			}
+		}
+		if f.GoType == "" {
+			f.GoType = f.Type
+		}
+		if f.GoType == "float" {
+			f.GoType = "float64"
+		}
+		if f.GoType == "" {
+			return fmt.Errorf("no go type %q", f.Name)
+		}
+	}
+	return nil
 }

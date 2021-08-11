@@ -16,7 +16,7 @@ fields:
     nameZh: 注册资金
     represent: 金额
     unit: 万元
-    type: int
+    type: float
   - name: fddbrxm
     nameZh: 法定代表人或负责人姓名
   - name: fddbrzjlx

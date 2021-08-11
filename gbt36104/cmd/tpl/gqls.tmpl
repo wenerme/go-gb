@@ -1,0 +1,9 @@
+{{/* gotype: github.com/wenerme/go-gb/gbt36104/cmd/gens.EntityMetaModel*/}}
+{{define "gqls/type"}}
+type {{.Name}} {
+  {{- range $k, $v := .Fields}}
+  """{{$v.NameZh}}"""
+  {{$v.Name}}: {{$v.Type | title}}
+  {{- end}}
+}
+{{end}}

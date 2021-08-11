@@ -3,6 +3,7 @@ ci:
 	$(MAKE) cover
 
 fmt:
+	go mod tidy
 	gofumpt -w `find . -type f -name '*.go' -not -path "./vendor/*"`
 	goimports -w `find . -type f -name '*.go' -not -path "./vendor/*"`
 

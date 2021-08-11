@@ -1,0 +1,130 @@
+type Organization {
+	"""
+	统一社会信用代码
+	"""
+	tyshxydm: String
+	"""
+	组织机构代码
+	"""
+	zzjgdm: String
+	"""
+	机构名称
+	"""
+	jgmc: String
+	"""
+	注册地址
+	"""
+	zcdz: String
+	"""
+	注册地址行政区划代码
+	"""
+	zcdzxzqhdm: String
+	"""
+	经营范围
+	"""
+	jyfw: String
+	"""
+	注册资金
+	"""
+	zczj: Float
+	"""
+	法定代表人或负责人姓名
+	"""
+	fddbrxm: String
+	"""
+	法定代表人或负责人证件类型
+	"""
+	fddbrzjlx: String
+	"""
+	法定代表人或负责人证件号码
+	"""
+	fddbrzjhm: String
+	"""
+	成立日期
+	"""
+	clrq: String
+	"""
+	登记业务类型
+	"""
+	djywlx: String
+	"""
+	核准日期
+	"""
+	hzrq: String
+	"""
+	最后更新日期
+	"""
+	zhgxrq: String
+	"""
+	状态
+	"""
+	zt: String
+	"""
+	生产经营地址
+	"""
+	scjydz: String
+	"""
+	生产经营地址行政区划代码
+	"""
+	scjydzxzqhdm: String
+	"""
+	货币种类
+	"""
+	hbzl: String
+	"""
+	注册号
+	"""
+	zch: String
+	"""
+	行业分类代码
+	"""
+	jjhydm: String
+	"""
+	经济类型代码
+	"""
+	jjlxdm: String
+	"""
+	登记管理部门名称
+	"""
+	djglbmmc: String
+	"""
+	登记管理部门代码
+	"""
+	djglbmdm: String
+	"""
+	主管单位
+	"""
+	zgdw: String
+	"""
+	主管单位代码
+	"""
+	zgdwdm: String
+	"""
+	联系电话
+	"""
+	lxdh: String
+	"""
+	职工人数
+	"""
+	zgrs: Int
+	"""
+	联系人
+	"""
+	lxr: String
+	"""
+	有限期自
+	"""
+	yxqz: String
+	"""
+	有限期至
+	"""
+	yxqzhi: String
+	"""
+	股东或投资人名称
+	"""
+	gdmc: String
+	"""
+	是否公开
+	"""
+	sfgk: Int
+}

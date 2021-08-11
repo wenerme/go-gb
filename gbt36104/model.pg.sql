@@ -6,7 +6,7 @@ create table organizations (
         zcdz text,
         zcdzxzqhdm text,
         jyfw text,
-        zczj int,
+        zczj float,
         fddbrxm text,
         fddbrzjlx text,
         fddbrzjhm text,
