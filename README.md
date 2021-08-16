@@ -26,4 +26,4 @@ China GB standard implemented in golang.
 
 ## 参考
 
-- [国标参考笔记](https://wener.me/notes/service/data/gb/gb)
+- [国标参考笔记](https://wener.me/notes/service/cn/gb/gb)
