@@ -55,6 +55,7 @@ func main() {
 		log.Fatalln(err)
 	}
 	NoError(entm.Normalize(mm))
+	NoError(Normalize(mm))
 
 	g := &gen.Generator{
 		Template: MustParseTemplates(),
